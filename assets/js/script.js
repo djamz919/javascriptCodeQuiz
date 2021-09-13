@@ -130,7 +130,7 @@ var chooseOption = function (event) {
         mainEl.appendChild(result);
         questionNum++;
         score = score + 10;
-        if (questionNum === 10) {
+        if (questionNum === 10 || timerEl === 0) {
             setInterval(function () { result.remove(); }, 5000);
         }
 
@@ -141,7 +141,7 @@ var chooseOption = function (event) {
         result.textContent = "Wrong!";
         mainEl.appendChild(result);
         questionNum++;
-        if (questionNum === 10) {
+        if (questionNum === 10 || timerEl === 0) {
             setInterval(function () { result.remove(); }, 5000);
         }
     }

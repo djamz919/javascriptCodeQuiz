@@ -32,7 +32,7 @@ var questions = [
         choices: ["i++", "i+=1", "i=i+1", "i++1"] //Index 3 
     },
     {
-        question: 'What is the range of numbers for the following code?\nMath.floor(Math.random() *4) + 1',
+        question: 'The range to "Math.floor(Math.random() *4) + 1" is from ________.',
         choices: ["0 to 4", "1 to 4", "0 to 5", "1 to 5"] //Index 1 is answer
     },
     {
@@ -131,7 +131,7 @@ var chooseOption = function (event) {
         questionNum++;
         score = score + 10;
         if (questionNum === 10) {
-            setInterval(function () { result.remove(); }, 2000);
+            setInterval(function () { result.remove(); }, 5000);
         }
 
     } else {
@@ -142,7 +142,7 @@ var chooseOption = function (event) {
         mainEl.appendChild(result);
         questionNum++;
         if (questionNum === 10) {
-            setInterval(function () { result.remove(); }, 2000);
+            setInterval(function () { result.remove(); }, 5000);
         }
     }
 

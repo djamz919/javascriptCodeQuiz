@@ -1,6 +1,7 @@
 var mainEl = document.querySelector("#main");
 var btnWrapperel = document.querySelector(".btn-wrapper");
-var headersEl = document.querySelector(".headers");
+var introHeaderEl = document.querySelector("#introHeader");
+var questionsEl = document.querySelector(".question");
 var containerEl = document.querySelector("#container");
 var instructionsEl = document.querySelector(".instructions");
 var timerEl = document.querySelector("#timeLeft");
@@ -113,6 +114,7 @@ var countdown = function () {
 
 var startQuiz = function () {
     countdown();
+    introHeaderEl.remove();
     var instrunctionWrapperEl = document.querySelector(".instruction-wrapper")
     instrunctionWrapperEl.remove();
     startButtonEl.remove();
@@ -120,8 +122,8 @@ var startQuiz = function () {
 }
 
 var displayQuestions = function (i) {
-    headersEl.textContent = questions[i].question;
-    headersEl.className = "question";
+    questionsEl.textContent = questions[i].question;
+    questionsEl.className = "question";
 
     var option1 = document.createElement("button");
     option1.className = "choice1";

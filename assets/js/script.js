@@ -1,9 +1,8 @@
 var mainEl = document.querySelector("#main");
-var startButtonEl = document.querySelector("#startQuiz");
+var btnWrapperel = document.querySelector(".btn-wrapper");
 var headersEl = document.querySelector(".headers");
 var containerEl = document.querySelector("#container");
 var instructionsEl = document.querySelector(".instructions");
-var instrunctionWrapperEl = document.querySelector("#instruction-wrapper");
 var timerEl = document.querySelector("#timeLeft");
 var mpcEl = document.querySelector("#mpc");
 var mainContainerEl = document.querySelector("#main-container");
@@ -59,6 +58,38 @@ var questions = [
 
 var answers = [2, 0, 3, 3, 1, 1, 0, 2, 3, 0];
 
+var landingPage = function(){
+    console.log("is this working?")
+    var instrunctionWrapperEl = document.createElement("div");
+    instrunctionWrapperEl.className = "instruction-wrapper";
+    containerEl.appendChild(instrunctionWrapperEl);
+
+    var instruction1El = document.createElement("p");
+    instruction1El.className = "instructions"
+    instruction1El.textContent = "Try to answer the following JavaScript related questions within the time limit."
+    instrunctionWrapperEl.appendChild(instruction1El);
+
+    var instruction2El = document.createElement("p");
+    instruction2El.className = "instructions"
+    instruction2El.textContent = "For each question you get correct, 10 points will be added to your score."
+    instrunctionWrapperEl.appendChild(instruction2El);
+
+    var instruction3El = document.createElement("p");
+    instruction3El.className = "instructions"
+    instruction3El.textContent = "Any remaining time at the end will also be added to your score."
+    instrunctionWrapperEl.appendChild(instruction3El);
+
+    var instruction4El = document.createElement("p");
+    instruction4El.className = "instructions"
+    instruction4El.textContent = "However, incorrect answers will penalize your time by ten seconds!"
+    instrunctionWrapperEl.appendChild(instruction4El);
+
+    var startButton = document.createElement("button");
+    startButton.className = "startbutton";
+    startButton.textContent = "Start Quiz";
+    btnWrapperel.appendChild(startButton);
+    
+}
 
 var countdown = function () {
     timerEl.textContent = 90;
@@ -82,6 +113,7 @@ var countdown = function () {
 
 var startQuiz = function () {
     countdown();
+    var instrunctionWrapperEl = document.querySelector(".instruction-wrapper")
     instrunctionWrapperEl.remove();
     startButtonEl.remove();
     displayQuestions(questionNum);
@@ -201,6 +233,9 @@ var viewHS = function () {
     console.log("You want to view high scores?");
 }
 
+landingPage();
+
+var startButtonEl = document.querySelector(".startbutton");
 startButtonEl.addEventListener("click", startQuiz);
 
 mpcEl.addEventListener("click", chooseOption);

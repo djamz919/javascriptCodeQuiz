@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #000a99;
+    --secondary: #757eff;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#viewHS {
+    color: var(--secondary);
+}
+
+#viewHS, #timer, .headers, .instructions, .text, .formLabel, .startbutton, .question, .choice1, .choice2, .choice3, .choice4 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.startbutton:hover, .choice1:hover, .choice2:hover, .choice3:hover, .choice4:hover, .formSubmit:hover{
+    background: var(--secondary);
+}
+
+.headers {
+    font-size: 2.5rem;
+}
+
+.question {
+    font-size: 1.6rem;
+    margin: 0 200px 10px 200px;
+}
+
+p {
+   font-size: 1.2rem;
+}
+
+.instructions {
+    margin: auto;
+}
+
+#viewHS {
+    margin-left: 50px;
+}
+
+#timer {
+    margin-right: 50px;
+}
+
+#wrapper {
+    margin: 100px 150px 0 150px;
+}
+
+#main-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.endContainer {
+    margin-left: 200px;
+}
+
+#introHeader, .instructions, .startbutton{
+    text-align: center;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#mpc {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 200px;
+}
+
+.startbutton, .choice1, .choice2, .choice3, .choice4, .formSubmit{
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: var(--primary);
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 12px;
+}
+
+.choice1, .choice2, .choice3, .choice4 {
+    margin-bottom: 10px;
+}
+
+.result {
+    border-top: rgb(175, 175, 175) solid;
+    border-top-width: 1px;
+    margin: 0 350px;
+    font-size: 24px;
+    color: rgb(175, 175, 175);
+    font-style: oblique;
+}
+
+.initialsForm {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.formLabel {
+    margin: 0 10px 0 0;
+    padding: 10px 0;
+}
+
+.formSubmit{
+    margin-left: 10px;
+}
+
+input {
+    font-size: 1.2rem;
+}

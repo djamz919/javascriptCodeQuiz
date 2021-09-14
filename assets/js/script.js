@@ -1,18 +1,10 @@
+var headerEl = document.querySelector(".head");
 var mainEl = document.querySelector("#main");
-var btnWrapperel = document.querySelector(".btn-wrapper");
-var introHeaderEl = document.querySelector("#introHeader");
-var questionsEl = document.querySelector(".question");
-var containerEl = document.querySelector("#container");
-var instructionsEl = document.querySelector(".instructions");
-var timerEl = document.querySelector("#timeLeft");
-var mpcEl = document.querySelector("#mpc");
-var mainContainerEl = document.querySelector("#main-container");
-var viewScoresEl = document.querySelector("#viewHS");
-var wrapperEl = document.querySelector("#wrapper");
 
 var score = 0;
-var questionNum = 0;
 var timeLeft = 89;
+var questionNum = 0;
+var highScores = []; //will hold objects of high scores
 
 var questions = [
     {
@@ -24,7 +16,7 @@ var questions = [
         choices: ["console.log()", "console.print()", "System.out.print()", "System.out.println()"] //index 0 is answer
     },
     {
-        question: "Which of the following are not JavaScript types?",
+        question: "Which of the following are not one of the primitive data types in JavaScript?",
         choices: ["String", "Boolean", "Number", "Char"] //Index 3 is answer
     },
     {
@@ -59,8 +51,48 @@ var questions = [
 
 var answers = [2, 0, 3, 3, 1, 1, 0, 2, 3, 0];
 
-var landingPage = function(){
-    console.log("is this working?")
+var landingPage = function () {
+    timeLeft = 89;
+    questionNum = 0;
+    score = 0;
+
+    if (document.querySelector(".highscoreContainer") !== null) {
+        var highScoreContainerEl = document.querySelector(".highscoreContainer");
+        highScoreContainerEl.remove();
+    }
+
+    var viewScoresEl = document.createElement("p");
+    viewScoresEl.id = "viewHS";
+    viewScoresEl.textContent = "View high scores";
+    headerEl.appendChild(viewScoresEl);
+
+    var countdownEl = document.createElement("p");
+    countdownEl.id = "timer";
+    countdownEl.innerHTML = 'Time: <span id="timeLeft">0</span>';
+    headerEl.appendChild(countdownEl);
+
+    var wrapperEl = document.createElement("section");
+    wrapperEl.id = "wrapper";
+    mainEl.appendChild(wrapperEl);
+
+    var mainContainerEl = document.createElement("div");
+    mainContainerEl.id = "main-container";
+    wrapperEl.appendChild(mainContainerEl);
+
+    var landingHeaderEl = document.createElement("h1");
+    landingHeaderEl.className = "headers";
+    landingHeaderEl.id = "introHeader";
+    landingHeaderEl.textContent = "JavaScript Coding Quiz";
+    mainContainerEl.appendChild(landingHeaderEl);
+
+    var questionHeaderEl = document.createElement("h1");
+    questionHeaderEl.className = "question";
+    mainContainerEl.appendChild(questionHeaderEl);
+
+    var containerEl = document.createElement("div");
+    containerEl.id = "container";
+    mainContainerEl.appendChild(containerEl);
+
     var instrunctionWrapperEl = document.createElement("div");
     instrunctionWrapperEl.className = "instruction-wrapper";
     containerEl.appendChild(instrunctionWrapperEl);
@@ -82,17 +114,29 @@ var landingPage = function(){
 
     var instruction4El = document.createElement("p");
     instruction4El.className = "instructions"
-    instruction4El.textContent = "However, incorrect answers will penalize your time by ten seconds!"
+    instruction4El.textContent = "However, incorrect answers will penalize your time by 10 seconds!"
     instrunctionWrapperEl.appendChild(instruction4El);
+
+    var mpcDivEl = document.createElement("div");
+    mpcDivEl.id = "mpc";
+    containerEl.appendChild(mpcDivEl);
+
+    var btnWrappreEl = document.createElement("div");
+    btnWrappreEl.className = "btn-wrapper";
+    mainEl.appendChild(btnWrappreEl);
 
     var startButton = document.createElement("button");
     startButton.className = "startbutton";
     startButton.textContent = "Start Quiz";
-    btnWrapperel.appendChild(startButton);
-    
+    btnWrappreEl.appendChild(startButton);
+
+    mpcDivEl.addEventListener("click", chooseOption);
+    startButton.addEventListener("click", startQuiz);
+    viewScoresEl.addEventListener("click", viewHS);
 }
 
 var countdown = function () {
+    var timerEl = document.querySelector("#timeLeft");
     timerEl.textContent = 90;
 
     var timeInterval = setInterval(function () {
@@ -114,14 +158,19 @@ var countdown = function () {
 
 var startQuiz = function () {
     countdown();
+    var introHeaderEl = document.querySelector("#introHeader");
     introHeaderEl.remove();
-    var instrunctionWrapperEl = document.querySelector(".instruction-wrapper")
+    var instrunctionWrapperEl = document.querySelector(".instruction-wrapper");
     instrunctionWrapperEl.remove();
+    var startButtonEl = document.querySelector(".startbutton");
     startButtonEl.remove();
     displayQuestions(questionNum);
 }
 
 var displayQuestions = function (i) {
+    var questionsEl = document.querySelector(".question");
+    var mpcEl = document.querySelector("#mpc");
+
     questionsEl.textContent = questions[i].question;
     questionsEl.className = "question";
 
@@ -151,6 +200,7 @@ var displayQuestions = function (i) {
 }
 
 var chooseOption = function (event) {
+    var timerEl = document.querySelector("#timeLeft");
     if (questionNum > 0) {
         var result = document.querySelector(".result");
         result.remove();
@@ -198,13 +248,16 @@ var clearOptions = function () {
 }
 
 var endQuiz = function () {
+    var mainContainerEl = document.querySelector("#main-container");
     mainContainerEl.remove();
     var endContainer = document.createElement("div");
     endContainer.className = "endContainer"
+
+    var wrapperEl = document.querySelector("#wrapper");
     wrapperEl.appendChild(endContainer);
 
     var allDoneHeader = document.createElement("h1");
-    allDoneHeader.className = "headers";
+    allDoneHeader.className = "allDone";
     allDoneHeader.textContent = "All Done!";
     endContainer.appendChild(allDoneHeader);
 
@@ -213,33 +266,140 @@ var endQuiz = function () {
     displayScore.textContent = "Your final score is " + score + ".";
     endContainer.appendChild(displayScore);
 
-    var formDiv = document.createElement("div");
-    formDiv.className = "initialsForm"
-    endContainer.appendChild(formDiv);
+    var formEl = document.createElement("form");
+    formEl.className = "initialsForm"
+    endContainer.appendChild(formEl);
 
     var formLabel = document.createElement("p");
     formLabel.className = "formLabel";
     formLabel.textContent = "Enter Initials: ";
-    formDiv.appendChild(formLabel);
+    formEl.appendChild(formLabel);
 
     var formInput = document.createElement("input");
-    formDiv.appendChild(formInput);
+    formEl.appendChild(formInput);
 
     var formSubmit = document.createElement("button");
     formSubmit.className = "formSubmit";
     formSubmit.textContent = "Submit";
-    formDiv.appendChild(formSubmit);
+    formEl.appendChild(formSubmit);
+
+    formEl.addEventListener("submit", addHS);
+}
+
+var clearHS = function () {
+    var savedScores = localStorage.getItem("highScores");
+    if (savedScores) {
+        var highscoreContainerEl = document.querySelector(".highscoreContainer");
+        highscoreContainerEl.remove();
+        var emptyArray = [];
+        localStorage.setItem("highScores", emptyArray);
+    } else {
+        return false;
+    }
+    viewHS();
 }
 
 var viewHS = function () {
     console.log("You want to view high scores?");
+    timeLeft = 0;
+    if (document.querySelector("#viewHS") !== null) {
+        var viewScoresEl = document.querySelector("#viewHS");
+        viewScoresEl.remove();
+    }
+
+    if (document.querySelector("#wrapper") !== null) {
+        var wrapperEl = document.querySelector("#wrapper");
+        wrapperEl.remove();
+    }
+
+    if (document.querySelector(".startbutton") !== null) {
+        var startButtonEl = document.querySelector(".startbutton");
+        startButtonEl.remove();
+    }
+
+    if (document.querySelector("#timer") !== null) {
+        var countdownEl = document.querySelector("#timer");
+        countdownEl.remove();
+    }
+
+    if (document.querySelector(".result") !== null) {
+        var resultEl = document.querySelector(".result");
+        resultEl.remove();
+    }
+
+    var highscoreContainerEl = document.createElement("div");
+    highscoreContainerEl.className = "highscoreContainer";
+    mainEl.appendChild(highscoreContainerEl);
+
+    var highscoreHeaderEl = document.createElement("h1");
+    highscoreHeaderEl.className = "headers";
+    highscoreHeaderEl.textContent = "High Scores:";
+    highscoreContainerEl.appendChild(highscoreHeaderEl);
+
+    var scoreListEl = document.createElement("ul");
+    scoreListEl.className = "scoreList";
+    highscoreContainerEl.appendChild(scoreListEl);
+
+    var savedScores = localStorage.getItem("highScores");
+    if (savedScores) {
+        console.log("Saved highs scores found!");
+        savedScores = JSON.parse(savedScores);
+        console.log(savedScores);
+        for (var i = 0; i < savedScores.length; i++) {
+            var scoreEl = document.createElement("li")
+            scoreEl.className = "score";
+            scoreEl.textContent = savedScores[i].name + " " + savedScores[i].highScore;
+            scoreListEl.appendChild(scoreEl);
+            console.log(scoreEl);
+        }
+    }
+
+    var hsButtonDivEl = document.createElement("div");
+    hsButtonDivEl.id = "hsButtonDiv";
+    highscoreContainerEl.appendChild(hsButtonDivEl);
+
+    var goBackButtonEl = document.createElement("button");
+    goBackButtonEl.className = "btn";
+    goBackButtonEl.textContent = "Go Back";
+    hsButtonDivEl.appendChild(goBackButtonEl);
+
+    var clearHSButtonEl = document.createElement("button");
+    clearHSButtonEl.className = "btn";
+    clearHSButtonEl.textContent = "Clear High Scores";
+    hsButtonDivEl.appendChild(clearHSButtonEl);
+
+    goBackButtonEl.addEventListener("click", landingPage);
+    clearHSButtonEl.addEventListener("click", clearHS);
+
+}
+
+var addHS = function (event) {
+    event.preventDefault();
+    console.log("Am I trying to add a highscore?");
+    var initialsHS = document.querySelector("input").value;
+
+    var updatedScores = [];
+
+    var highScoreObj = {
+        name: initialsHS,
+        highScore: score,
+    };
+
+    var savedScores = localStorage.getItem("highScores");
+    if (savedScores) {
+        savedScores = JSON.parse(savedScores);
+        console.log(savedScores);
+        for (var i = 0; i < savedScores.length; i++) {
+            updatedScores.push(savedScores[i]);
+        }
+    }
+
+    updatedScores.push(highScoreObj);
+
+    highScores = updatedScores;
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    viewHS();
 }
 
 landingPage();
-
-var startButtonEl = document.querySelector(".startbutton");
-startButtonEl.addEventListener("click", startQuiz);
-
-mpcEl.addEventListener("click", chooseOption);
-
-viewScoresEl.addEventListener("click", viewHS);

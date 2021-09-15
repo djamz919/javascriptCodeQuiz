@@ -1,11 +1,13 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 :root {
     --primary: #000a99;
     --secondary: #757eff;
+    --tertiary: #b3b8ff;
 }
 
 header {
@@ -19,7 +21,7 @@ header {
     color: var(--secondary);
 }
 
-#viewHS, #timer, .headers, .instructions, .text, .formLabel, .startbutton, .question, .choice1, .choice2, .choice3, .choice4 {
+#viewHS, #timer, .headers, .instructions, .text, .formLabel, .startbutton, .allDone, .score, .question, .choice1, .choice2, .choice3, .choice4 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -66,6 +68,10 @@ p {
     margin: 0 300px;
 }
 
+.highscoreContainer {
+    margin: 0 300px;
+}
+
 .endContainer {
     margin: 0 300px;
 }
@@ -86,7 +92,7 @@ p {
     justify-content: flex-start;
 }
 
-.startbutton, .choice1, .choice2, .choice3, .choice4, .formSubmit{
+.startbutton, .choice1, .choice2, .choice3, .choice4, .formSubmit, .btn {
     outline: none;
     border: none;
     padding: 10px 15px;
@@ -122,10 +128,34 @@ p {
     padding: 10px 0;
 }
 
-.formSubmit{
+.formSubmit {
     margin-left: 10px;
 }
 
 input {
     font-size: 1.2rem;
+}
+
+.scoreList {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 10px 0;
+}
+
+.score:nth-child(2n-1) {
+    background-color: var(--secondary);
+}
+
+.score {
+    background-color: var(--tertiary);
+    width: 100%;
+    color: white;
+    font-size: 25px;
+    padding: 5px 0 5px 10px;
+}
+
+#hsButtonDiv button {
+    margin-right: 20px;
 }

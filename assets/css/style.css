@@ -158,6 +158,89 @@ input {
     padding: 5px 0 5px 10px;
 }
 
-#hsButtonDiv button {
+.btn {
     margin-right: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+    #main-container, .result, .endContainer {
+        margin: 0 100px;
+    }
+
+    .highscoreContainer {
+        margin: 100px 100px;
+    }
+
+    .headers, .allDone {
+        font-size: 32px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #main-container, .result, .endContainer {
+        margin: 0 30px;
+    }
+
+    .highscoreContainer {
+        margin: 100px 30px;
+    }
+
+    .headers, .allDone {
+        font-size: 32px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    #main-container, .result, .endContainer {
+        margin: 0 30px;
+    }
+
+    #viewHS {
+        margin-left: 30px;
+    }
+
+    #timer {
+        margin-right: 30px;
+    }
+
+    .highscoreContainer {
+        margin: 100px 30px;
+    }
+
+    .headers, .allDone {
+        font-size: 22px;
+    }
+
+    .question, .result {
+        font-size: 16px;
+    }
+
+    p, .score {
+        font-size: 14px;
+    }
+
+    .startbutton, #mpc button, .btn {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        margin: 0px 5px 0px 0px;
+    }
 }

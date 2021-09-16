@@ -235,12 +235,37 @@ input {
         font-size: 14px;
     }
 
-    .startbutton, #mpc button, .btn {
+    .startbutton, #mpc button, .btn, .formSubmit {
         font-size: 14px;
     }
 
     .btn {
         padding: 10px 15px;
-        margin: 0px 5px 0px 0px;
+        margin: 0;
+    }
+    
+    .initialsForm{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #hsButtonDiv{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .formLabel {
+        width: 50%;
+        padding-top: 0px;
+    }
+
+    .initialsForm input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .formSubmit {
+        margin-left: 0;
     }
 }
